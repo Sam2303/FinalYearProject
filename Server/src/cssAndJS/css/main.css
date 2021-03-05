@@ -1,0 +1,108 @@
+/* General Styling */
+
+:root{
+
+--backgroundColor: #4F5165;
+--navBackground: #293132;
+--navText: #f3f3f3;
+--navHover: #50D8D7;
+
+}
+
+*{
+  font-family: century gothic;
+  width: auto;
+}
+
+body{
+  background-image: url(./web_BG.png);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* styling the nav bar for desktop */
+
+a{
+  color: var(--navText);
+  text-decoration: none;
+}
+a:hover{
+  transition: 0.5s all ease;
+  color: var(--navHover);
+}
+
+header{
+  color: var(--navText);
+  font-size: 150%;
+  text-align: center;
+  width: 100%;
+}
+header  h1{
+    padding: 2px;
+}
+
+header ul{
+  list-style: none;
+}
+header li{
+  padding: 4%;
+  margin-left: -2%;
+  text-align: center;
+  display: inline;
+}
+
+/* styling the main body of the pages */
+#welcomeMSG{
+  text-align: center;
+  font-size: 150%;
+  background: var(--navText);
+  color: var(--navBackground);
+  margin: 5%;
+  padding: 2%;
+  border-radius: 5px;
+}
+
+/* styling the Add page boxes */
+#question,#answer{
+    background: var(--navText);
+    border: none;
+    border-radius: 5px;
+    width: 50%;
+    padding: 1%;
+    margin: 2%;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+/* styling the level select */
+#LevelCheck{
+    text-align: center;
+    list-style: none;
+    margin: 2%;
+}
+.levels{
+    color: var(--navText);
+    font-size: 120%;
+    margin: 2%;
+    display: inline;
+}
+.radio{
+    size: 200%;
+}
+
+.text{
+    text-align: center;
+    font-size: 150%;
+    color: white;
+}
+/* styling the submit button */
+#submitBtn{
+    background-color: var(--navHover);
+    border-radius: 9px;
+    border: none;
+    font-size: 150%;
+    width: 40%;
+    height: 50px;
+    margin: 2% 30% 2% 30%;
+    text-align: center;
+}

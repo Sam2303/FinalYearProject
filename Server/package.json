@@ -1,0 +1,26 @@
+{
+  "name": "question_creator",
+  "version": "1.0.0",
+  "description": "Question Creator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sam2303/Web_redo.git"
+  },
+  "author": "889823",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sam2303/Web_redo/issues"
+  },
+  "homepage": "https://github.com/Sam2303/Web_redo#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "node-fetch": "^2.6.1"
+  }
+}

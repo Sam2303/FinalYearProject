@@ -1,0 +1,71 @@
+{
+ "Lvl1": [
+  {
+   "question": "x = £\ny = $\nprint(x + y)"
+  },
+  {
+   "question": "x = $\ny = £\nprint(x - y)"
+  },
+  {
+   "question": "x = £\ny = $\nprint(x * y)"
+  },
+  {
+   "question": "x = $\ny = £\nprint(x // y)"
+  }
+ ],
+ "Lvl2": [
+  {
+   "question": "a = 0\nfor i in range(£):\n    a = a + 1\nprint(a)"
+  },
+  {
+   "question": "b = 0\nfor i in range(£):\n    i = i + 1\n    b = b + 1\nprint(i + b)"
+  },
+  {
+   "question": "x = 0\nfor i in [£, $, &, !]:\n    x = x + i\nprint(x)"
+  },
+  {
+   "question": "a = 0\nfor i in range(£, $, 2):\n    a = a + 1\nprint(a)"
+  }
+ ],
+ "Lvl3": [
+  {
+   "question": "x = &\ny = $\nfor i in range(x):\n    y = y + 1\nprint(y)"
+  },
+  {
+   "question": "x = ?\nlist = [£, $, &, !]\nif list[x] < 13:\n    print (list[0])\nelse:\n    print(x)"
+  },
+  {
+   "question": "x = ?\nlist = [£, $, &, !, ?]\nif list[x] < 13:\n    print(list[0])\nelse: \n    print(x)"
+  },
+  {
+   "question": "x = &\nif x < £:\n    print(x)\nelse: \n    print(0)"
+  }
+ ],
+ "Lvl4": [
+  {
+   "question": "i = 0\nx = 0\nwhile i < £:\n    while x < $:\n        i = i + 1\n        x = x + 1\nprint(i + x)"
+  },
+  {
+   "question": "x = &\nif x > 0 and x < 10:\n    for i in range(x):\n        x = x + 2\nprint(x)"
+  },
+  {
+   "question": "list = [£, $, &, !, ?]\nx = 0\nfor i in list:\n        if i < 10:\n            x = x + i\nprint(x)"
+  },
+  {
+   "question": "list = [£, $, &, !, ?]\nx = 0\nfor i in list:\n    x = x + i\n    x = x + i\nprint(x)"
+  }
+ ],
+ "Lvl5": [
+  {
+   "question": "x = '~'\nbool = len(x) < 6\nif bool:\n    print(len(x))\nelse: \n    print(0)"
+  },
+  {
+   "question": "x = ?\nlist = [£, $, &, !, ?]\nwords = '~'\nif list[x] <= len(words):\n    print(x * len(words))\nelse:\n    print(x + len(words))\n"
+  }
+ ],
+ "Lvl6": [],
+ "Lvl7": [],
+ "Lvl8": [],
+ "Lvl9": [],
+ "Lvl10": []
+}

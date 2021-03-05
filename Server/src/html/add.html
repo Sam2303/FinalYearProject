@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="../cssAndJS/css/main.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Question Adder</title>
+    </head>
+
+    <body>
+        <header>
+            <h1>Question Adder</h1>
+
+            <nav>
+                <ul>
+                    <li> <a href="download.html"> Download </a></li>
+                    <li> <a href="edit.html"> Edit </a></li>
+                    <li> <a href="index.html"> Home </a></li>
+                </ul>
+            </nav>
+
+        </header>
+
+        <p id='welcomeMSG'>On this page you can add a question do a specific Level
+            using the select boxes, and typing in your question. You can use the symbols and the values they will be randomsied between :
+            <br> £ : 1 - 10<br> $ : 10 - 20 <br> & : 0 - 20 <br> ! : 0 - 20 <br> ? : 0 - 3 <br> ~ : random word <br>
+            to make the variables random in the application. You can only change number variables.
+            an example of something you can write is: <br>
+            x = £<br>y = $<br>print(x + y) <br>
+            Make sure that it is correct and no mistakes, once its in the program, you're not going
+            to be able to change it!!</p>
+
+        <ul id="LevelCheck">
+            <li class="levels">
+                Level 1
+                <input class="radio" type="radio" name="radioCheckBoxes" value="Lvl1">
+            </li>
+            <li class="levels">
+                Level 2
+                <input class="radio" type="radio" name="radioCheckBoxes" value="Lvl2">
+            </li>
+            <li class="levels">
+                Level 3
+                <input class="radio" type="radio" name="radioCheckBoxes" value="Lvl3">
+            </li>
+            <li class="levels">
+                Level 4
+                <input class="radio" type="radio" name="radioCheckBoxes" value="Lvl4">
+            </li>
+            <li class="levels">
+                Level 5
+                <input class="radio" type="radio" name="radioCheckBoxes" value="Lvl5">
+            </li>
+        </ul>
+
+
+        <p class="text">Input Question: </p>
+        <textarea name="name" rows="8" cols="80" id="question"></textarea>
+        <button type="button" name="button" id="submitBtn">Submit</button>
+
+
+
+
+
+        <script type="text/javascript" src='../cssAndJS/js/getQuestionAndAnswer.js'></script>
+    </body>
+
+</html>
