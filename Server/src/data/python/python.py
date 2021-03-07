@@ -1,3 +1,3 @@
-x = 5
-y = 18
-print(x * y)
+x = 12
+y = 1
+print(x - y)

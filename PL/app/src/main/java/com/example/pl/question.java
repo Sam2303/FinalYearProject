@@ -38,7 +38,6 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-
 public class question extends AppCompatActivity {
 // All the Text edits and Bars that need to get got or to be edited
     EditText UserAnswerEditText;
@@ -57,12 +56,11 @@ public class question extends AppCompatActivity {
     int x; int y; int z; int t; int c;
 // Question and answer to be applied to the correct spaces on the app
     String question; int answer;
-    // For randomising
+// For randomising
     Random rand = new Random();
-    // List for the questions to be added to.
+// List for the questions to be added to.
     ArrayList<String> questionList = new ArrayList<>();
-
-    // Function to decide what is declared and ran when the page loads.
+// Function to decide what is declared and ran when the page loads.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
