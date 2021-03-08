@@ -1,14 +1,50 @@
 const submitButton = document.getElementById('submitBtn');
+get_random = function (list) {
+  return list[Math.floor((Math.random()*list.length))];
+}
+
 submitButton.addEventListener('click', async() => {
 
-    let question = document.getElementById("question").value;
+    let rawQuestion = document.getElementById("question").value;
+    console.log(rawQuestion);
+
+
+
+    //check between here if the python code will run, if not give error message to inputter
+
+//  Do replace here
+    let oneToTen = [1,2,3,4,5,6,7,8,9,10];
+    let tenToTwenty = [10,11,12,13,14,15,16,17,18,19,20];
+    let zeroToTwenty = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+    let zeroToThree = [0,1,2,3];
+    let wordList = ["word", "portsmouth", "second"];
+
+    let question = rawQuestion.replace("£", get_random(oneToTen));
+    question = question.replace("$", get_random(tenToTwenty));
+    question = question.replace("&", get_random(zeroToTwenty));
+    question = question.replace("!", get_random(zeroToTwenty));
+    question = question.replace("?", get_random(zeroToThree));
+    question = question.replace("~", get_random(wordList));
     console.log(question);
 
-
-    let forUpload = {
-        "question" : question
+    // post request to test if the question runs
+    let testQuestion = {
+        'question' : question
     };
 
+    const send = await fetch('../api/testPython', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(testQuestion),
+    });
+    const res = await send.json();
+    if(res.success === true){
+      console.log('pyhton file ran');
+      window.alert("Question has been saved")
+
+    let forUpload = {
+        "question" : rawQuestion
+    };
     console.log(forUpload);
 
 
@@ -43,6 +79,7 @@ submitButton.addEventListener('click', async() => {
     console.log(json);
 
 
+
     const send = await fetch('../api/storeResults', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -58,5 +95,9 @@ submitButton.addEventListener('click', async() => {
     let answerBox = document.getElementById('answer');
 
     questionBox.value = '';
+    } else{
+        console.log('error');
+        window.alert("THIS IS NOT A VALID PYHTON QUESTION, EDIT IT AND TRY AGAIN");
+     }
 
 });

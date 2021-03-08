@@ -54,8 +54,6 @@ public class question extends AppCompatActivity {
     long timeLeft = 60000;
     CountDownTimer countDownTimer;
     String timeLeftText;
-
-    int time = 60;
 // JSON file to get from the server
     String myJSONFile = "";
 // Numbers for the counting levels and percentages
@@ -67,7 +65,7 @@ public class question extends AppCompatActivity {
     int min = 2; int max = 20;
     int x; int y; int z; int t; int c;
 // Question and answer to be applied to the correct spaces on the app
-    String question; String answerStr; int answerInt;
+    String question; String answerStr;
 // For randomising
     Random rand = new Random();
 // List for the questions to be added to.
@@ -83,8 +81,8 @@ public class question extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         countDownText = (TextView) findViewById(R.id.countDownTimer);
         getFile();
-
     }
+
 // Function to see if they got the question right or not and also what do to depending on this
     public void submitBtn(View view) {
 
@@ -492,7 +490,6 @@ public class question extends AppCompatActivity {
             startActivity(myIntent);
         }
     }
-
 // Functions to make the counter count down
     public void startTimer(){
         timeLeft = 60000;
@@ -520,5 +517,4 @@ public class question extends AppCompatActivity {
             runFunctions();
         }
     }
-
 }
