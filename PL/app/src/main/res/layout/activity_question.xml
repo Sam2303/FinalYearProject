@@ -8,6 +8,7 @@
     android:background="@drawable/bgquestions">
 
 
+
     <EditText
         android:id="@+id/Q_Input"
         android:layout_width="411dp"
@@ -16,7 +17,7 @@
         android:ems="10"
         android:gravity="center"
         android:hint="Answer"
-        android:inputType="number|numberSigned"
+        android:inputType="text"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,5 +68,15 @@
         app:layout_constraintEnd_toStartOf="@+id/progressBar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Q_Input" />
+
+    <TextView
+        android:id="@+id/countDownTimer"
+        android:layout_width="78dp"
+        android:layout_height="51dp"
+        android:text="60"
+        android:textColor="#F3F3F3"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

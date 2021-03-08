@@ -2,7 +2,9 @@ package com.example.pl;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,6 +24,7 @@ import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonValue;
 
 import org.jetbrains.annotations.NotNull;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,6 +32,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -44,6 +49,13 @@ public class question extends AppCompatActivity {
     TextView qText;
     ProgressBar progressBar;
     TextView lvlText;
+// To make the timer work
+    TextView countDownText;
+    long timeLeft = 60000;
+    CountDownTimer countDownTimer;
+    String timeLeftText;
+
+    int time = 60;
 // JSON file to get from the server
     String myJSONFile = "";
 // Numbers for the counting levels and percentages
@@ -55,7 +67,7 @@ public class question extends AppCompatActivity {
     int min = 2; int max = 20;
     int x; int y; int z; int t; int c;
 // Question and answer to be applied to the correct spaces on the app
-    String question; int answer;
+    String question; String answerStr; int answerInt;
 // For randomising
     Random rand = new Random();
 // List for the questions to be added to.
@@ -69,32 +81,31 @@ public class question extends AppCompatActivity {
         qText = (TextView) findViewById(R.id.qText);
         lvlText = (TextView) findViewById(R.id.lvlText);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        countDownText = (TextView) findViewById(R.id.countDownTimer);
         getFile();
 
     }
 // Function to see if they got the question right or not and also what do to depending on this
     public void submitBtn(View view) {
+
         String userAnswerStr = UserAnswerEditText.getText().toString();
-        if (userAnswerStr.equals("")){return;}
-        int userAnswer = Integer.parseInt(userAnswerStr);
-        Boolean answerCorrect = answer == userAnswer;
-        if (answerCorrect){
-            //Plays Sound
-            MediaPlayer correctSound = MediaPlayer.create(question.this,R.raw.correctsound);
-            correctSound.start();
+        Boolean answerCorrectStr = answerStr.equalsIgnoreCase(userAnswerStr);
+        Log.i("ANSWER CORRECT", String.valueOf(answerCorrectStr));
+
+        if (answerCorrectStr){
             // removes question from list
             questionList.remove(randNoL);
             if(questionList.isEmpty()){counter = counter + 5;   runQuestions(myJSONFile);}
             displayCorrectPopUp(view);
             //gets new question
+            countDownTimer.cancel();
             runFunctions();
             qText.setText(question);
             UserAnswerEditText.setText("");
         }else{
-            MediaPlayer incorrectSounds = MediaPlayer.create(question.this,R.raw.incorrectsound);
-            incorrectSounds.start();
             displayIncorrectPopUp(view);
             // gets new question
+            countDownTimer.cancel();
             runFunctions();
             qText.setText(question);
             UserAnswerEditText.setText("");
@@ -107,13 +118,16 @@ public class question extends AppCompatActivity {
             if(questionListSizeAfterRemoval == 0){return;}
             else {
                 percentage = (100 / questionListSizeAfterRemoval);
-                Log.i("PERCENTAGE", String.valueOf(percentage));
+//                Log.i("PERCENTAGE", String.valueOf(percentage));
                 progressBar.setProgress(percentage);
-                Log.i("PERCENTAGE", String.valueOf(percentage));
+//                Log.i("PERCENTAGE", String.valueOf(percentage));
             }
     }
 // Function to make the CorrectPopUp window show when they get the question right
     public void displayCorrectPopUp(View view){
+        //Plays Sound
+        MediaPlayer correctSound = MediaPlayer.create(question.this,R.raw.correctsound);
+        correctSound.start();
         // inflate the layout of the popup window
         LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -139,10 +153,40 @@ public class question extends AppCompatActivity {
     }
 // Function to make IncorrectPopUp window show when they get the question wrong
     public void displayIncorrectPopUp(View view){
+        MediaPlayer incorrectSounds = MediaPlayer.create(question.this,R.raw.incorrectsound);
+        incorrectSounds.start();
         // inflate the layout of the popup window
         LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.incorectlayout_popup, null);
+        // create the popup window
+        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        boolean focusable = true; // lets taps outside the popup also dismiss it
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+        // show the popup window
+        // which view you pass in doesn't matter, it is only used for the window tolken
+        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+
+        // dismiss the popup window when touched
+        popupView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                popupWindow.dismiss();
+                return true;
+            }
+        });
+    }
+// Function to make the timerRunOut_PopUp show when the user runs out of time on a question
+    public void displayTimerRunOut(View view){
+        //Plays Sound
+        MediaPlayer correctSound = MediaPlayer.create(question.this,R.raw.incorrectsound);
+        correctSound.start();
+        // inflate the layout of the popup window
+        LayoutInflater inflater = (LayoutInflater)
+                getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.timerrunout_popup, null);
         // create the popup window
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -214,11 +258,10 @@ public class question extends AppCompatActivity {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 final String myResponse = response.body().string();
-                Log.i("myReponse", myResponse);
+                Log.i("myResponse", myResponse);
                 JsonObject answerJSON = Json.parse(myResponse).asObject();
-                answer = answerJSON.asObject().getInt("answer", 0);
-                Log.i("ANSWER", String.valueOf(answer));
-
+                answerStr = answerJSON.asObject().getString("answerStr", "Unknown Value");
+                Log.i("ANSWER", answerStr);
             }
 
             @Override
@@ -422,7 +465,7 @@ public class question extends AppCompatActivity {
 
         randNoL = rand.nextInt(questionList.size());
 
-        Log.i("questions in list", questionList.toString());
+//        Log.i("questions in list", questionList.toString());
 
         String qL = questionList.get(randNoL);
 
@@ -442,10 +485,40 @@ public class question extends AppCompatActivity {
             randomQuestion();
             sendQuestion();
             qText.setText(question);
+            startTimer();
         }
         else{
             Intent myIntent = new Intent(question.this, MainActivity.class);
             startActivity(myIntent);
         }
     }
+
+// Functions to make the counter count down
+    public void startTimer(){
+        timeLeft = 60000;
+        countDownTimer = new CountDownTimer(timeLeft, 1000) {
+            @Override
+            public void onTick(long l) {
+                timeLeft = l;
+                updateTimer();
+            }
+            @Override
+            public void onFinish() {}
+        }.start();
+    }
+    public void updateTimer() {
+        int minute = (int) timeLeft / 60000;
+        int seconds = (int) timeLeft  % 60000 / 1000;
+        timeLeftText = "" + minute;
+        timeLeftText += ":";
+        if(seconds < 10){timeLeftText += "0";}
+        timeLeftText += seconds;
+        countDownText.setText(timeLeftText);
+
+        if (timeLeftText.equals("0:00")){
+            countDownTimer.cancel();
+            runFunctions();
+        }
+    }
+
 }

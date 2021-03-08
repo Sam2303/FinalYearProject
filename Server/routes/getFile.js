@@ -18,8 +18,7 @@ const dataPath = "./src/data/questionAnswers.json";
 
         console.log("this is the question from the app: "+file);
         let question = response.question;
-        console.log("this is the bare question : \n" + elem.question);
-
+        console.log("this is the bare question : \n" + question);
         fs.writeFile('./src/data/python/python.py', question , err => {
           if (err){console.log('ERROR!');}
           else{
@@ -30,14 +29,15 @@ const dataPath = "./src/data/questionAnswers.json";
            process.stdout.on('data', async(data) => {
               console.log("RUN THE PYTHON FILE ANSWER : " + data.toString());
 
-              let dataString = data.toString();
-              let dataInt = parseInt(dataString, 10);
-              elem.json1 = {
-                  'answer': dataInt
-              }
-              elem.json = JSON.stringify(elem.json1);
+              let answerStr = data.toString();
+              answerStr = answerStr.replace("\n", "");
 
-              await res.send(JSON.parse(elem.json));
+              let json1 = {
+                  'answerStr' : answerStr
+              }
+              let json = JSON.stringify(json1);
+
+              await res.send(JSON.parse(json));
                 });
 
 

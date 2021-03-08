@@ -3,6 +3,8 @@
     <string name="HowToText">The App works by asking you a question. Your task is to track through the code and enter the correct answer.
     You will receive a response to your answer saying if you got it correct or incorrect.
     The app has levels which get increasingly harder as you progress.
-    Hint: Take it slow and read very carefully.</string>
+    Hint: Take it slow and read very carefully, also the spacing of your answers are very important, make sure you space everything correctly for
+    a good quality of code!
+    Have Fun and enjoy!</string>
 
 </resources>

@@ -21,17 +21,17 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="413dp"
-        android:layout_height="291dp"
+        android:layout_width="410dp"
+        android:layout_height="397dp"
         android:gravity="center_horizontal"
         android:text="@string/HowToText"
         android:textAlignment="center"
         android:textColor="#F3F3F3"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/backBtn"/>
 
     <ImageView
         android:id="@+id/backBtn"

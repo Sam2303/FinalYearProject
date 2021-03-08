@@ -1,3 +1,5 @@
-x = 12
-y = 1
-print(x - y)
+x = 6
+if x < 5:
+    print(x)
+else: 
+    print(0)

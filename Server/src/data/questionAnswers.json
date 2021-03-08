@@ -61,6 +61,9 @@
   },
   {
    "question": "x = ?\nlist = [£, $, &, !, ?]\nwords = '~'\nif list[x] <= len(words):\n    print(x * len(words))\nelse:\n    print(x + len(words))\n"
+  },
+  {
+   "question": "list = [1,2,'gregg']\nlist.append('sam')\nlist.append(0)\nprint(list)"
   }
  ],
  "Lvl6": [],
