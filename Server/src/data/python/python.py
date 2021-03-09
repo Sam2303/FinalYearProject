@@ -1,3 +1,3 @@
-x = 6
-y = 15
-print(x * y)
+x = 17
+y = 9
+print(x - y)

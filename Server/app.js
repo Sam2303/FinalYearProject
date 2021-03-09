@@ -4,7 +4,9 @@ const api = require('./api');
 const app = express();
 const fs = require('fs');
 const fetch = require('node-fetch');
-const PythonShell = require('python-shell');
+const connectDB = require('./database.js');
+
+
 
 app.use(bodyParser.json());
 app.use('/api', api);

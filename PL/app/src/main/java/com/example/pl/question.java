@@ -44,6 +44,12 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class question extends AppCompatActivity {
+// Username/ counter/ score
+    String userName = "";
+    int counterDB;
+    int highScore;
+    int currentScore;
+
 // All the Text edits and Bars that need to get got or to be edited
     EditText UserAnswerEditText;
     TextView qText;
@@ -82,7 +88,6 @@ public class question extends AppCompatActivity {
         countDownText = (TextView) findViewById(R.id.countDownTimer);
         getFile();
     }
-
 // Function to see if they got the question right or not and also what do to depending on this
     public void submitBtn(View view) {
 
@@ -177,34 +182,6 @@ public class question extends AppCompatActivity {
         });
     }
 // Function to make the timerRunOut_PopUp show when the user runs out of time on a question
-    public void displayTimerRunOut(View view){
-        //Plays Sound
-        MediaPlayer correctSound = MediaPlayer.create(question.this,R.raw.incorrectsound);
-        correctSound.start();
-        // inflate the layout of the popup window
-        LayoutInflater inflater = (LayoutInflater)
-                getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = inflater.inflate(R.layout.timerrunout_popup, null);
-        // create the popup window
-        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-        boolean focusable = true; // lets taps outside the popup also dismiss it
-        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
-
-        // show the popup window
-        // which view you pass in doesn't matter, it is only used for the window tolken
-        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
-
-        // dismiss the popup window when touched
-        popupView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                popupWindow.dismiss();
-                return true;
-            }
-        });
-    }
-// Function to get the list of questions and then to replace those questions
     public void getFile(){
         OkHttpClient client = new OkHttpClient();
         String url = "http://10.0.2.2:8080/test";

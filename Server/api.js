@@ -1,8 +1,135 @@
 const express = require('express')
 const fs = require('fs');
 const spawn = require('child_process').spawn;
+const mongoose = require('mongoose');
 const api = express.Router();
 const elem = [];
+const {MongoClient} = require('mongodb');
+const URI = "mongodb+srv://dbUser:dbUser@cluster0.fzis5.mongodb.net/fypDb?retryWrites=true&w=majority"
+const client = new MongoClient(URI, { useUnifiedTopology: true });
+
+const dbName = 'fyp';
+
+api.post('/Createlogin', async(req,res)=>{
+    try {
+        await client.connect();
+        console.log('Connected to database!');
+        const db = client.db(dbName);
+
+        const response = req.body;
+        const userName = response.userName;
+        const password = response.password;
+
+        const col = db.collection("users");
+
+        let loginDets = {
+            "userName" : userName,
+            "password" : password
+        }
+
+        const p = await col.insertOne(loginDets);
+        const myDoc = await col.findOne();
+        console.log(myDoc);
+     }catch(err){
+         console.log(err.stack);
+     }
+
+});
+
+api.post('/sendCounterAndScore', async(req,res)=>{
+    try {
+        await client.connect();
+        console.log('Connected to database!');
+        const db = client.db(dbName);
+           const response = req.body;
+           const counter = response.counter;
+           const score = response.score;
+
+           const col = db.collection("counterAndScore");
+
+           let counterAndScore = {
+               "userName" : userName,
+               "counter" : counter,
+               "score" : score
+           }
+           const p = await col.insertOne(counterAndScore);
+           const myDoc = await col.findOne();
+           console.log(myDoc);
+           await res.json(myDoc);
+       }catch(err){
+           console.log(err.stack);
+       }
+});
+
+api.post('/getCounterAndScore', async(req,res)=>{
+    try {
+        await client.connect();
+        console.log('Connected to database!');
+        const db = client.db(dbName);
+
+        const response = req.body;
+        const userName = response.userName;
+        const counter = response.counter;
+        const score = response.score;
+
+        const counterAndScore = db.collection('counterAndScore');
+        const query = {
+            "userName" : userName
+        }
+        const options = {
+            sort: {rating : -1},
+            projection : {_id:0, userName:1, counter:1, score:1},
+        };
+
+        const user = await user.findOne(query, options);
+        console.log(user);
+
+        if (user !== null){
+            console.log('user in db');
+            await res.json(user);
+        }else{console.log('user not in db');}
+
+    }catch(err){
+        console.log(err.stack);
+    }
+});
+
+api.post('/getLogin', async(req, res)=>{
+    console.log("fetching login");
+    try {
+        await client.connect();
+        console.log('Connected to database!');
+        const db = client.db(dbName);
+
+        const response = req.body;
+        const userName = response.userName;
+        const password = response.password;
+
+        const users = db.collection('users');
+        const query = {
+            "userName" : userName,
+            "password" : password
+        }
+        const options = {
+            sort: {rating : -1},
+            projection : {_id:0, userName:1, password:1},
+        };
+
+        const user = await users.findOne(query, options);
+        console.log(user);
+
+        if (user !== null){
+            console.log('user in db');
+        }else{console.log('user not in db');}
+
+    }catch(err){
+        console.log(err.stack);
+    }
+});
+
+
+
+
 
 api.get('/getFile', async(req, res) => {
    await res.json({
