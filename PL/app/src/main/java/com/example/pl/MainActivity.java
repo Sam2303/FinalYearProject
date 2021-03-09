@@ -31,8 +31,6 @@ public class MainActivity extends AppCompatActivity {
     EditText userName;
     EditText password;
 
-    question q = new question();
-
     String confirmedUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,13 +75,10 @@ public class MainActivity extends AppCompatActivity {
                     JsonObject loginResTrue = Json.parse(myResponse).asObject();
                     confirmedUser = loginResTrue.asObject().getString("userName", "user");;
                     // define username/ counter/ score in question class
-                    q.userName = loginResTrue.asObject().getString("userName", "user");
 
-
-                    // get counter and score
-                    //getCounterAndScore();
 
                     Intent startActivity = new Intent(MainActivity.this, start.class);
+                    startActivity.putExtra("dbUser", loginResTrue.toString());
                     startActivity(startActivity);
 
                 }

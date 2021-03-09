@@ -40,54 +40,36 @@ app.post('/sendCounterAndScore', async(req,res)=>{
         console.log('Connected to database!');
         const db = client.db(dbName);
            const response = req.body;
+           const userName = response.userName;
            const counter = response.counter;
            const score = response.score;
 
            const col = db.collection("counterAndScore");
 
-           let counterAndScore = {
+           let query = {
+               "userName" : userName
+           };
+
+           let newValues = {
+               $set: {
                "userName" : userName,
                "counter" : counter,
                "score" : score
            }
-           const p = await col.insertOne(counterAndScore);
-           const myDoc = await col.findOne();
-           console.log(myDoc);
-           await res.json(myDoc);
+           };
+           let options = {"upsert":true};
+
+           const result = await col.updateOne(query, newValues, options);
+           console.log("updated file");
+           await res.json({success: true});
+       //
+       //     const p = await col.insertOne(counterAndScore);
+       //     const myDoc = await col.findOne();
+       //     console.log(myDoc);
+       //     await res.json(myDoc);
        }catch(err){
            console.log(err.stack);
        }
-});
-
-app.post('/getCounterAndScore', async(req,res)=>{
-    try {
-        await client.connect();
-        console.log('Connected to database!');
-        const db = client.db(dbName);
-
-        const response = req.body;
-        const userName = response.userName;
-
-        const counterAndScore = db.collection('counterAndScore');
-        const query = {
-            "userName" : userName
-        }
-        const options = {
-            sort: {rating : -1},
-            projection : {_id:0, userName:1, counter:1, score:1},
-        };
-
-        const user = await user.findOne(query, options);
-        console.log(user);
-
-        if (user !== null){
-            console.log('user in db');
-            await res.json(user);
-        }else{console.log('user not in db');}
-
-    }catch(err){
-        console.log(err.stack);
-    }
 });
 
 app.post('/getLogin', async(req, res)=>{

@@ -45,10 +45,12 @@ import okhttp3.Response;
 
 public class question extends AppCompatActivity {
 // Username/ counter/ score
-    String userName = "";
-    int counterDB;
-    int highScore;
-    int currentScore;
+    String dbUser;
+    JsonObject dbUserJson;
+    TextView userNameText;
+    TextView highScoreText;
+    TextView currentScoreText;
+    int score;
 
 // All the Text edits and Bars that need to get got or to be edited
     EditText UserAnswerEditText;
@@ -63,7 +65,7 @@ public class question extends AppCompatActivity {
 // JSON file to get from the server
     String myJSONFile = "";
 // Numbers for the counting levels and percentages
-    int counter = 0;
+    int counter;
     int randNoL;
     int percentage = 0;
     int questionListSize;
@@ -86,7 +88,23 @@ public class question extends AppCompatActivity {
         lvlText = (TextView) findViewById(R.id.lvlText);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         countDownText = (TextView) findViewById(R.id.countDownTimer);
+
+        // Setting values for the top part, from database, username and scoring.
+        Bundle bundle = getIntent().getExtras();
+        dbUser = bundle.getString("dbUser");
+        Log.i("DBUSER", dbUser);
+        dbUserJson = Json.parse(dbUser).asObject();
+        userNameText = (TextView) findViewById(R.id.UserNameText);
+        highScoreText = (TextView) findViewById(R.id.highScore);
+        currentScoreText = (TextView) findViewById(R.id.currentScore);
+        Log.i("DBUSER", String.valueOf(dbUser));
+        counter = Integer.parseInt(dbUserJson.asObject().getString("counter", "0"));
+
+        userNameText.setText(dbUserJson.asObject().getString("userName", "user"));
+        highScoreText.setText("High Score: " + dbUserJson.asObject().getString("highScore", "0"));
+
         getFile();
+
     }
 // Function to see if they got the question right or not and also what do to depending on this
     public void submitBtn(View view) {
@@ -272,6 +290,7 @@ public class question extends AppCompatActivity {
             }
         }
         if(counter < 10 && counter >= 5){
+            sendDataDB();
             for (JsonValue value: Lvl2) {
                 String q = value.asObject().getString("question", "Unknown Value");
                 questionList.add(q);
@@ -281,6 +300,7 @@ public class question extends AppCompatActivity {
             questionList.add(qAdd.asObject().getString("question", "Unknown Value"));
         }
         if (counter >=10 && counter < 15){
+            sendDataDB();
             for(JsonValue value : Lvl3){
                 String q = value.asObject().getString("question", "Unknown Value");
                 questionList.add(q);
@@ -292,6 +312,7 @@ public class question extends AppCompatActivity {
             questionList.add(qAdd2.asObject().getString("question", "Unknown Value"));
         }
         if (counter >=15 && counter < 20){
+            sendDataDB();
             for(JsonValue value : Lvl4){
                 String q = value.asObject().getString("question", "Unknown Value");
                 questionList.add(q);
@@ -305,6 +326,7 @@ public class question extends AppCompatActivity {
             questionList.add(qAdd3.asObject().getString("question", "Unknown Value"));
         }
         if (counter >=20 && counter < 25){
+            sendDataDB();
             for(JsonValue value : Lvl5){
                 String q = value.asObject().getString("question", "Unknown Value");
                 questionList.add(q);
@@ -320,6 +342,7 @@ public class question extends AppCompatActivity {
             questionList.add(qAdd4.asObject().getString("question", "Unknown Value"));
         }
         if (counter >=25 && counter < 30){
+            sendDataDB();
             for (JsonValue value : Lvl6){
                 String q = value.asObject().getString("question", "Unknown Item");
                 questionList.add(q);
@@ -337,6 +360,7 @@ public class question extends AppCompatActivity {
             questionList.add(qAdd5.asObject().getString("question", "Unknown Value"));
         }
         if(counter >=30 && counter < 35){
+            sendDataDB();
             for (JsonValue value: Lvl7) {
                 String q = value.asObject().getString("question", "Unknown Value");
                 questionList.add(q);
@@ -356,6 +380,7 @@ public class question extends AppCompatActivity {
             questionList.add(qAdd6.asObject().getString("question", "Unknown Value"));
         }
         if (counter >=35 && counter < 40){
+            sendDataDB();
             for(JsonValue value : Lvl8){
                 String q = value.asObject().getString("question", "Unknown Value");
                 questionList.add(q);
@@ -377,6 +402,7 @@ public class question extends AppCompatActivity {
             questionList.add(qAdd7.asObject().getString("question", "Unknown Value"));
         }
         if (counter >=40 && counter < 45){
+            sendDataDB();
             for(JsonValue value : Lvl9){
                 String q = value.asObject().getString("question", "Unknown Value");
                 questionList.add(q);
@@ -400,6 +426,7 @@ public class question extends AppCompatActivity {
             questionList.add(qAdd8.asObject().getString("question", "Unknown Value"));
         }
         if (counter >=45 && counter < 50){
+            sendDataDB();
             for(JsonValue value : Lvl10){
                 String q = value.asObject().getString("question", "Unknown Value");
                 questionList.add(q);
@@ -493,5 +520,40 @@ public class question extends AppCompatActivity {
             countDownTimer.cancel();
             runFunctions();
         }
+    }
+// Function to update the database after the user has completed a level
+    public void sendDataDB(){
+        OkHttpClient client = new OkHttpClient();
+
+        RequestBody formBody = new FormBody.Builder()
+                .add("userName", dbUserJson.asObject().getString("userName", "user"))
+                .add("counter", String.valueOf(counter))
+                .add("highScore", String.valueOf(score))
+                .build();
+
+        Request request = new Request.Builder()
+                .url("http://10.0.2.2:8080/sendCounterAndScore")
+                .post(formBody)
+                .build();
+
+        Call call = client.newCall(request);
+
+        call.enqueue(new Callback() {
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                final String myResponse = response.body().string();
+                Log.i("myResponse", myResponse);
+                JsonObject answerJSON = Json.parse(myResponse).asObject();
+                Log.i("RESPONSE AFTER LEVEL", String.valueOf(answerJSON));
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                Log.e("ERROR FROM POST","did not send");
+                e.printStackTrace();
+            }
+        });
     }
 }
