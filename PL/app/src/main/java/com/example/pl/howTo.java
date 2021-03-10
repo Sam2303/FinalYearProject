@@ -24,7 +24,7 @@ public class howTo extends AppCompatActivity {
     }
 
     public void startBtn(View view) {
-        Intent myIntent = new Intent(howTo.this, question.class);
+        Intent myIntent = new Intent(howTo.this, start.class);
         myIntent.putExtra("dbUser", dbUser);
         startActivity(myIntent);
     }

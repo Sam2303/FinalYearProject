@@ -87,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
 
                 }else {
                     JsonObject loginResTrue = Json.parse(myResponse).asObject();
-                    confirmedUser = loginResTrue.asObject().getString("userName", "user");;
                     // define username/ counter/ score in question class
                     Intent startActivity = new Intent(MainActivity.this, start.class);
                     startActivity.putExtra("dbUser", loginResTrue.toString());
@@ -102,6 +101,11 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         });
+    }
+
+    public void registerBtn(View view){
+        Intent myIntent = new Intent(MainActivity.this, register.class);
+        startActivity(myIntent);
     }
 
 }

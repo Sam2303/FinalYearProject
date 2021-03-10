@@ -93,15 +93,18 @@ public class question extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         dbUser = bundle.getString("dbUser");
         Log.i("DBUSER", dbUser);
+        // Getting the Boxes in the xml to set:
         dbUserJson = Json.parse(dbUser).asObject();
         userNameText = (TextView) findViewById(R.id.UserNameText);
         highScoreText = (TextView) findViewById(R.id.highScore);
         currentScoreText = (TextView) findViewById(R.id.currentScore);
         Log.i("DBUSER", String.valueOf(dbUser));
-        counter = Integer.parseInt(dbUserJson.asObject().getString("counter", "0"));
-
+        // Setting the text boxes
         userNameText.setText(dbUserJson.asObject().getString("userName", "user"));
-        highScoreText.setText("High Score: " + dbUserJson.asObject().getString("highScore", "0"));
+        //Setting the counter for specific user
+        counter = Integer.parseInt(bundle.getString("counter"));
+        // Setting the Users highScore so its visible
+        highScoreText.setText("High Score: " + bundle.getString("highScore"));
 
         getFile();
 

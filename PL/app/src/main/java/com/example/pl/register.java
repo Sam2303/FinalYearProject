@@ -44,7 +44,7 @@ public class register extends AppCompatActivity {
 
     }
 
-    public void login(View view){
+    public void register(View view){
 
         String userNameText = userName.getText().toString();
         String passwordText = password.getText().toString();
@@ -69,24 +69,11 @@ public class register extends AppCompatActivity {
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 final String myResponse = response.body().string();
                 Log.i("myResponse", myResponse);
-                JsonObject loginRes = Json.parse(myResponse).asObject();
-                String loginTF = loginRes.asObject().getString("success", "no");
-                if(loginTF.equals("false")){
-                    Log.i("login success?", "NOT A VALID LOGIN");
-                    MediaPlayer incorrectSounds = MediaPlayer.create(register.this,R.raw.incorrectsound);
-                    incorrectSounds.start();
-                    loginBtn.setImageResource(R.drawable.loginwrong);
 
-                }else {
-                    JsonObject loginResTrue = Json.parse(myResponse).asObject();
-                    confirmedUser = loginResTrue.asObject().getString("userName", "user");;
-                    // define username/ counter/ score in question class
-                    Intent startActivity = new Intent(register.this, MainActivity.class);
-                    startActivity.putExtra("dbUser", loginResTrue.toString());
-                    startActivity(startActivity);
+                Intent startActivity = new Intent(register.this, MainActivity.class);
+                startActivity(startActivity);
 
                 }
-            }
 
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {

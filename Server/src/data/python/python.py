@@ -1,4 +1,6 @@
 x = 0
-for i in [4, 19, 11, 2]:
-    x = x + i
-print(x)
+list = [2, 13, 10, 5]
+if list[x] < 13:
+    print (list[0])
+else:
+    print(x)
