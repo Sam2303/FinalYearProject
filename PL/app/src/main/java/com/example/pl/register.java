@@ -1,25 +1,17 @@
 package com.example.pl;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.eclipsesource.json.Json;
 import com.eclipsesource.json.JsonObject;
-import com.google.android.material.textfield.TextInputEditText;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -33,7 +25,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class register extends AppCompatActivity {
 
     EditText userName;
     EditText password;
@@ -45,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_register);
         userName = (EditText) findViewById(R.id.userName);
         password = (EditText) findViewById(R.id.password);
         loginBtn = (ImageView) findViewById(R.id.loginBtn);
@@ -65,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         Request request = new Request.Builder()
-                .url("http://10.0.2.2:8080/getLogin")
+                .url("http://10.0.2.2:8080/createLogin")
                 .post(formBody)
                 .build();
 
@@ -81,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 String loginTF = loginRes.asObject().getString("success", "no");
                 if(loginTF.equals("false")){
                     Log.i("login success?", "NOT A VALID LOGIN");
-                    MediaPlayer incorrectSounds = MediaPlayer.create(MainActivity.this,R.raw.incorrectsound);
+                    MediaPlayer incorrectSounds = MediaPlayer.create(register.this,R.raw.incorrectsound);
                     incorrectSounds.start();
                     loginBtn.setImageResource(R.drawable.loginwrong);
 
@@ -89,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                     JsonObject loginResTrue = Json.parse(myResponse).asObject();
                     confirmedUser = loginResTrue.asObject().getString("userName", "user");;
                     // define username/ counter/ score in question class
-                    Intent startActivity = new Intent(MainActivity.this, start.class);
+                    Intent startActivity = new Intent(register.this, MainActivity.class);
                     startActivity.putExtra("dbUser", loginResTrue.toString());
                     startActivity(startActivity);
 
@@ -103,5 +95,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 }

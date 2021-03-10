@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PL"
         android:usesCleartextTraffic="true">
-        <activity android:name=".start"></activity>
+        <activity android:name=".register"></activity>
+        <activity android:name=".start" />
         <activity android:name=".question" />
         <activity android:name=".howTo" />
         <activity android:name=".MainActivity">

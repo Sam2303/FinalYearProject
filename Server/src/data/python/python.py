@@ -1,3 +1,4 @@
-x = 19
-y = 7
-print(x - y)
+x = 0
+for i in [4, 19, 11, 2]:
+    x = x + i
+print(x)

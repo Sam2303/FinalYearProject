@@ -33,7 +33,7 @@ app.post('/Createlogin', async(req,res)=>{
      }
 
 });
-
+// Adds data to the database after level progression
 app.post('/sendCounterAndScore', async(req,res)=>{
     try {
         await client.connect();
@@ -62,16 +62,11 @@ app.post('/sendCounterAndScore', async(req,res)=>{
            const result = await col.updateOne(query, newValues, options);
            console.log("updated file");
            await res.json({success: true});
-       //
-       //     const p = await col.insertOne(counterAndScore);
-       //     const myDoc = await col.findOne();
-       //     console.log(myDoc);
-       //     await res.json(myDoc);
        }catch(err){
            console.log(err.stack);
        }
 });
-
+// gets all relevant information on login
 app.post('/getLogin', async(req, res)=>{
     console.log("fetching login");
     try {
@@ -94,7 +89,11 @@ app.post('/getLogin', async(req, res)=>{
         };
 
         const user = await users.findOne(query, options);
-        console.log(user);
+        console.log("This is the user info: "+user);
+        if(user === null){
+            console.log("not valid login");
+            await res.json({"success":"false"});
+        }else{
 
         const getCounter = db.collection('counterAndScore');
         const query2 = {
@@ -121,8 +120,9 @@ app.post('/getLogin', async(req, res)=>{
             console.log('user in db');
             await res.json(sendToClient);
         }else{console.log('user not in db');await res.json({success:'false'});}
-
+}
     }catch(err){
+        console.log("RORRRRRRRRRRR");
         console.log(err.stack);
     }
 });
@@ -132,14 +132,8 @@ app.post('/getLogin', async(req, res)=>{
 
 
 
-
-
-
-
-
-
-
 //------------------//
+// Actual app functionality
 
     app.get('/test', (req, res) => {
        fs.readFile(dataPath, 'utf8', (err, data) => {
@@ -180,35 +174,6 @@ app.post('/getLogin', async(req, res)=>{
 
 
     });
-
-
-    app.get('/writePython', async(req, res) => {
-
-        let question = elem.question;
-        fs.writeFile('./src/data/python/python.py', question , err => {
-          if (err){console.log('ERROR!');}
-          else{
-            console.log('WRITTEN TO PYTHON');}
-          });
-
-          const process = spawn('python', ['./src/data/python/python.py']);
-           process.stdout.on('data', data => {
-              console.log("RUN THE PYTHON FILE ANSWER : " + data.toString());
-
-              let dataString = data.toString();
-              let dataInt = parseInt(dataString, 10);
-              elem.json1 = {
-                  'answer': dataInt
-              }
-              elem.json = JSON.stringify(elem.json1);
-
-              res.send(JSON.parse(elem.json));
-                });
-           });
-
-
-
-
 
 }
 module.exports = testRoutes;
