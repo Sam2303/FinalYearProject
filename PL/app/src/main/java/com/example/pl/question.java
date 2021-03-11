@@ -50,7 +50,10 @@ public class question extends AppCompatActivity {
     TextView userNameText;
     TextView highScoreText;
     TextView currentScoreText;
+    String userName;
     int score;
+    int highScore;
+    int seconds;
 
 // All the Text edits and Bars that need to get got or to be edited
     EditText UserAnswerEditText;
@@ -101,10 +104,12 @@ public class question extends AppCompatActivity {
         Log.i("DBUSER", String.valueOf(dbUser));
         // Setting the text boxes
         userNameText.setText(dbUserJson.asObject().getString("userName", "user"));
+        userName = dbUserJson.asObject().getString("userName", "user");
         //Setting the counter for specific user
         counter = Integer.parseInt(bundle.getString("counter"));
         // Setting the Users highScore so its visible
         highScoreText.setText("High Score: " + bundle.getString("highScore"));
+        highScore = Integer.parseInt(bundle.getString("highScore"));
 
         getFile();
 
@@ -117,6 +122,7 @@ public class question extends AppCompatActivity {
         Log.i("ANSWER CORRECT", String.valueOf(answerCorrectStr));
 
         if (answerCorrectStr){
+            scoring(true);
             // removes question from list
             questionList.remove(randNoL);
             if(questionList.isEmpty()){counter = counter + 5;   runQuestions(myJSONFile);}
@@ -127,6 +133,7 @@ public class question extends AppCompatActivity {
             qText.setText(question);
             UserAnswerEditText.setText("");
         }else{
+            scoring(false);
             displayIncorrectPopUp(view);
             // gets new question
             countDownTimer.cancel();
@@ -512,7 +519,7 @@ public class question extends AppCompatActivity {
     }
     public void updateTimer() {
         int minute = (int) timeLeft / 60000;
-        int seconds = (int) timeLeft  % 60000 / 1000;
+        seconds = (int) timeLeft  % 60000 / 1000;
         timeLeftText = "" + minute;
         timeLeftText += ":";
         if(seconds < 10){timeLeftText += "0";}
@@ -558,5 +565,55 @@ public class question extends AppCompatActivity {
                 e.printStackTrace();
             }
         });
+    }
+// Function to calculate the scoring system
+    public void scoring(Boolean correct){
+        if(correct){
+            score = score + seconds;
+            currentScoreText.setText(String.valueOf(score));
+        }
+        else{
+            int scoreMinus = 60 - seconds;
+            score = score - scoreMinus;
+            currentScoreText.setText(String.valueOf(score));
+        }
+        sendHighScoreToDb();
+    }
+// check current score is higher than high score, if so update database.
+    public void sendHighScoreToDb(){
+        if(score > highScore){
+            Log.i("score upadte", "updating post request has started" + userName + String.valueOf(score));
+            OkHttpClient client = new OkHttpClient();
+
+            RequestBody formBody = new FormBody.Builder()
+                    .add("userName", userName)
+                    .add("highScore", String.valueOf(score))
+                    .build();
+
+            Request request = new Request.Builder()
+                    .url("http://10.0.2.2:8080/updateHighScore")
+                    .post(formBody)
+                    .build();
+
+            Call call = client.newCall(request);
+
+            call.enqueue(new Callback() {
+
+                @Override
+                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                    final String myResponse = response.body().string();
+                    Log.i("myResponse", myResponse);
+                    JsonObject answerJSON = Json.parse(myResponse).asObject();
+                    Log.i("RESPONSE AFTER LEVEL", String.valueOf(answerJSON));
+
+                }
+
+                @Override
+                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                    Log.e("ERROR FROM POST","did not send");
+                    e.printStackTrace();
+                }
+            });
+        }else{Log.i("SCORING", "SCORE WASNT HIGHER THAN HIGH SCORE");}
     }
 }

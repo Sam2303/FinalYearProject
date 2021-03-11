@@ -49,6 +49,10 @@ public class start extends AppCompatActivity {
         backIntent.putExtra("dbUser", dbUser);
         startActivity(backIntent);
     }
+    public void leaderboardBtn(View view){
+        Intent myIntent = new Intent(start.this, leaderboard.class);
+        startActivity(myIntent);
+    }
 
     public void getCounterAndScore(){
         String userName = dbUserJson.getString("userName", "Unknown Value");

@@ -165,6 +165,75 @@ app.post('/getCounterAndScore', async(req, res) => {
 
 });
 
+app.post('/updateHighScore', async(req, res) => {
+   try{
+       await client.connect();
+       console.log('Connected to database!');
+       const db = client.db(dbName);
+
+       const response  = req.body;
+       console.log(response);
+       const userName = response.userName;
+       let highScore = response.highScore;
+       highScore = parseInt(highScore, 10);
+
+       const col = db.collection("leaderboard");
+
+       let query = {
+           "userName" : userName
+       };
+
+       let newValues = {
+           $set: {
+           "userName" : userName,
+           "highScore" : highScore
+       }
+       };
+       let options = {"upsert":true};
+
+       const result = await col.updateOne(query, newValues, options);
+       console.log("updated file");
+       await res.json({success: true});
+
+   }catch(err){
+       console.log(err);
+       console.log("ERROR");
+   }
+});
+app.post('/orderedLeaderboard', async(req, res) => {
+
+    try {
+        await client.connect();
+        console.log('Connected to database!');
+        const db = client.db(dbName);
+
+        const response  = req.body;
+        console.log(response);
+
+        const col = db.collection('leaderboard');
+
+
+        const cursor = await col.find().sort({highScore:-1});
+
+
+        let json = {"leaderboard" : []};
+
+        for await(const doc of cursor){
+            json["leaderboard"].push(doc);
+        }
+        console.log(json);
+
+        await res.json(json);
+
+
+
+
+    } catch(err){
+        console.log(err.stack)
+    }
+
+});
+
 
 
 

@@ -1,6 +1,5 @@
-x = 0
-list = [2, 13, 10, 5]
-if list[x] < 13:
-    print (list[0])
-else:
+x = 16
+if x < 9:
     print(x)
+else: 
+    print(0)
