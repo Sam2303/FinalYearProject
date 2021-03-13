@@ -1,6 +1,6 @@
-list = [5, 14, 6, 5, 2]
-x = 0
+x = ''
+list = [2, 16, 17, 13]
+list.append('yummy')
 for i in list:
-        if i < 10:
-            x = x + i
+    x = x + str(i)
 print(x)
