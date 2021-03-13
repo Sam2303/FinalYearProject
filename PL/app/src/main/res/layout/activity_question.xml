@@ -50,8 +50,8 @@
     <ProgressBar
         android:id="@+id/progressBar"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="283dp"
-        android:layout_height="49dp"
+        android:layout_width="277dp"
+        android:layout_height="52dp"
         android:progressDrawable="@drawable/progressbar"
         app:layout_constraintBottom_toTopOf="@+id/checkBtn"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,8 +60,8 @@
 
     <TextView
         android:id="@+id/lvlText"
-        android:layout_width="107dp"
-        android:layout_height="47dp"
+        android:layout_width="129dp"
+        android:layout_height="54dp"
         android:text="Level 1"
         android:textColor="#F3F3F3"
         android:textSize="30sp"

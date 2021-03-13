@@ -103,6 +103,7 @@ public class leaderboard extends AppCompatActivity {
 
             Log.i("Username", userName);
             Log.i("highScore", String.valueOf(highScore));
+            int uNLength = userName.length();
 
             String dataAdd = (index + 1) +".    " + userName+":     "+ highScore;
             setLeaderboard(index, dataAdd);

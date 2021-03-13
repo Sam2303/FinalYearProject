@@ -570,8 +570,7 @@ public class question extends AppCompatActivity {
             currentScoreText.setText("Score: "+String.valueOf(score));
         }
         else{
-            int scoreMinus = 60 - seconds;
-            score = score - scoreMinus;
+            score = score - 60;
             currentScoreText.setText("Score: "+String.valueOf(score));
         }
         sendHighScoreToDb();

@@ -1,5 +1,7 @@
-def function():
-    x = 11
-    y = 14
-    return x + y
-print(function())
+def function(x, word):
+    y = len(word)
+    if x < y:
+        return (word + str(x))
+    else:
+        return word
+print(function(3,'word'))

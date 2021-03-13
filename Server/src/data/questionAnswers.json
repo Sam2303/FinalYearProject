@@ -97,8 +97,46 @@
    "question": "def function():\n    x = &\n    y = !\n    return x + y\nprint(function())"
   }
  ],
- "Lvl8": [],
- "Lvl9": [],
+ "Lvl8": [
+  {
+   "question": "def function1(x, y):\n    for i in range(x):\n        y = y + ?\n    return y\ndef function2():\n    x = &\n    y = !\n    print(function1(x, y))\nfunction2()"
+  },
+  {
+   "question": "def function(x,y,word):\n    for i in range(x):\n        for i in range(y):\n            word = word + str(i)\n    return word\nprint(function(2, ?, '~'))"
+  },
+  {
+   "question": "def divide(x, y):\n    if x < y:\n        print(y % x)\n    else:\n        print(x % y)\ndivide($, £)"
+  },
+  {
+   "question": "list = [£, $ , &]\ndef sum(x,y,list):\n    list.append(x)\n    return list[y]\nprint(sum(!, ?,list))"
+  }
+ ],
+ "Lvl9": [
+  {
+   "question": "def strManipulate(word1, word2,\n        z):\n    x = len(word1)\n    y = len(word2)\n    print((x + y) % z)\nstrManipulate('!', '~', £)"
+  },
+  {
+   "question": "def function():\n    x = !\n    y = &\n    if x > y:\n        function2(x)\n    else: \n        print(x % y)\ndef function2(x):\n    print(x)\nfunction()"
+  },
+  {
+   "question": "def compute_hcf(x, y):\n    while(y):\n        x, y = y, x % y\n    return x\n    \nhcf = compute_hcf(&, !)\nprint('The HCF is ' +  str(hcf))"
+  },
+  {
+   "question": "num = !\nif num <= 0:\n    print(\"Cannot calculate\")\nelse:\n    sum = 0\n    while(num > 0):\n        sum += num\n        num -= 1\n    print(\"The sum is \" +\n         str(sum))"
+  }
+ ],
  "Lvl10": [
+  {
+   "question": "num = !\nsum = 0\ntemp = num\nwhile temp > 0:\n    digit = temp % 10\n    sum += digit ** 3\n    temp //= 10\nif num == sum:\n    print(str(num) + ' YES')\nelse:\n    print(str(num) + ' NO')"
+  },
+  {
+   "question": "string = ''\nlist = [£, $, !, '~']\nfor i in list:\n    string = str(i) + string\nprint(string)"
+  },
+  {
+   "question": "def function(x,y,z):\n    number = £\n    for i in range(x+y):\n        number = number +  z\n    return number\nprint(function($,!,?))"
+  },
+  {
+   "question": "def function(x, word):\n    y = len(word)\n    if x < y:\n        return (word + str(x))\n    else:\n        return word\nprint(function(!,'~'))"
+  }
  ]
 }
