@@ -143,11 +143,21 @@ app.post('/getCounterAndScore', async(req, res) => {
        const counterScore = await getCounter.findOne(query2, options2);
        console.log(counterScore);
 
+       // get highscore from leaderboard
+
+       const col = db.collection('leaderboard');
+       const options = {
+           sort: {rating : -1},
+           projection : {_id:0, userName:1, highScore:1},
+       };
+       const highScore = await col.findOne(query2, options);
+       console.log(highScore)
+
 
        let sendToClient = {
            "userName" : userName,
            "counter": counterScore.counter,
-           "highScore": counterScore.highScore
+           "highScore": highScore.highScore
        }
 
 

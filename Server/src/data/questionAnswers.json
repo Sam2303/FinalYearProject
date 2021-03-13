@@ -15,6 +15,20 @@
  ],
  "Lvl2": [
   {
+   "question": "x = '~'\ny =  's'\nprint(x + y)"
+  },
+  {
+   "question": "x = '~'\nprint(x[?])"
+  },
+  {
+   "question": "x = '~'\ny = len(x)\nprint(y)"
+  },
+  {
+   "question": "x = '~'\ny = 'a'\nprint(x.count(y))"
+  }
+ ],
+ "Lvl3": [
+  {
    "question": "a = 0\nfor i in range(£):\n    a = a + 1\nprint(a)"
   },
   {
@@ -27,7 +41,7 @@
    "question": "a = 0\nfor i in range(£, $, 2):\n    a = a + 1\nprint(a)"
   }
  ],
- "Lvl3": [
+ "Lvl4": [
   {
    "question": "x = &\ny = $\nfor i in range(x):\n    y = y + 1\nprint(y)"
   },
@@ -41,7 +55,7 @@
    "question": "x = &\nif x < £:\n    print(x)\nelse: \n    print(0)"
   }
  ],
- "Lvl4": [
+ "Lvl5": [
   {
    "question": "i = 0\nx = 0\nwhile i < £:\n    while x < $:\n        i = i + 1\n        x = x + 1\nprint(i + x)"
   },
@@ -55,7 +69,7 @@
    "question": "list = [£, $, &, !, ?]\nx = 0\nfor i in list:\n    x = x + i\n    x = x + i\nprint(x)"
   }
  ],
- "Lvl5": [
+ "Lvl6": [
   {
    "question": "x = '~'\nbool = len(x) < 6\nif bool:\n    print(len(x))\nelse: \n    print(0)"
   },
@@ -63,12 +77,28 @@
    "question": "x = ?\nlist = [£, $, &, !, ?]\nwords = '~'\nif list[x] <= len(words):\n    print(x * len(words))\nelse:\n    print(x + len(words))\n"
   },
   {
-   "question": "list = [1,2,'gregg']\nlist.append('sam')\nlist.append(0)\nprint(list)"
+   "question": "list = [£, $, &]\nlist.append('~')\nlist.append(!)\nprint(list[?])"
+  },
+  {
+   "question": "x = '~'\nlist = ['a', 'e', 'i', 'o', 'u']\nfor i in range(£):\n    x = x + list[?]\nprint(x)"
   }
  ],
- "Lvl6": [],
- "Lvl7": [],
+ "Lvl7": [
+  {
+   "question": "x = '~'\ny = &\nif y >= len(x):\n    for i in range(?):\n\tx = x + str(y)\nelse:\n    x = x + str(y)\nprint(x)"
+  },
+  {
+   "question": "x = ''\nlist = [£, $, &, !]\nlist.append('~')\nfor i in list:\n    x = x + str(i)\nprint(x)"
+  },
+  {
+   "question": "x = !\nif (x % 2) == 0:\n    print(str(x)+ ' is even')\nelse:\n    print(str(x) + ' is odd')"
+  },
+  {
+   "question": "def function():\n    x = &\n    y = !\n    return x + y\nprint(function())"
+  }
+ ],
  "Lvl8": [],
  "Lvl9": [],
- "Lvl10": []
+ "Lvl10": [
+ ]
 }

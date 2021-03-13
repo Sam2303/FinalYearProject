@@ -64,7 +64,7 @@ header li{
 }
 
 /* styling the Add page boxes */
-#question,#answer{
+#question{
     background: var(--navText);
     border: none;
     border-radius: 5px;
@@ -73,6 +73,8 @@ header li{
     margin: 2%;
     margin-left: 25%;
     margin-right: 25%;
+    font-size: 120%;
+    font-family: monospace;
 }
 /* styling the level select */
 #LevelCheck{

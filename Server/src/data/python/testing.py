@@ -1,3 +1,5 @@
-x = 2
-y = 17
-print(x + y)
+def function():
+    x = 11
+    y = 14
+    return x + y
+print(function())

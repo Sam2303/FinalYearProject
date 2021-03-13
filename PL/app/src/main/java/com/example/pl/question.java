@@ -47,7 +47,6 @@ public class question extends AppCompatActivity {
 // Username/ counter/ score
     String dbUser;
     JsonObject dbUserJson;
-    TextView userNameText;
     TextView highScoreText;
     TextView currentScoreText;
     String userName;
@@ -98,12 +97,10 @@ public class question extends AppCompatActivity {
         Log.i("DBUSER", dbUser);
         // Getting the Boxes in the xml to set:
         dbUserJson = Json.parse(dbUser).asObject();
-        userNameText = (TextView) findViewById(R.id.UserNameText);
         highScoreText = (TextView) findViewById(R.id.highScore);
         currentScoreText = (TextView) findViewById(R.id.currentScore);
         Log.i("DBUSER", String.valueOf(dbUser));
         // Setting the text boxes
-        userNameText.setText(dbUserJson.asObject().getString("userName", "user"));
         userName = dbUserJson.asObject().getString("userName", "user");
         //Setting the counter for specific user
         counter = Integer.parseInt(bundle.getString("counter"));
@@ -570,12 +567,12 @@ public class question extends AppCompatActivity {
     public void scoring(Boolean correct){
         if(correct){
             score = score + seconds;
-            currentScoreText.setText(String.valueOf(score));
+            currentScoreText.setText("Score: "+String.valueOf(score));
         }
         else{
             int scoreMinus = 60 - seconds;
             score = score - scoreMinus;
-            currentScoreText.setText(String.valueOf(score));
+            currentScoreText.setText("Score: "+String.valueOf(score));
         }
         sendHighScoreToDb();
     }

@@ -72,44 +72,34 @@
 
     <TextView
         android:id="@+id/countDownTimer"
-        android:layout_width="71dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
+        android:layout_width="46dp"
+        android:layout_height="34dp"
         android:text="1:00"
         android:textColor="#F3F3F3"
-        android:textSize="36sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/UserNameText"
-        android:layout_width="228dp"
-        android:layout_height="24dp"
-        android:text="Username"
+        android:id="@+id/currentScore"
+        android:layout_width="173dp"
+        android:layout_height="32dp"
+        android:text="Score: "
         android:textColor="@color/white"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/currentScore"
-        android:layout_width="202dp"
-        android:layout_height="26dp"
-        android:text="Current Score: "
-        android:textColor="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/UserNameText" />
-
-    <TextView
         android:id="@+id/highScore"
-        android:layout_width="135dp"
-        android:layout_height="25dp"
+        android:layout_width="185dp"
+        android:layout_height="30dp"
         android:text="High Score: "
         android:textColor="@color/white"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/countDownTimer"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/currentScore"
-        app:layout_constraintTop_toBottomOf="@+id/UserNameText" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

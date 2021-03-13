@@ -4,7 +4,7 @@
   "description": "Question Creator",
   "main": "index.js",
   "scripts": {
-    "server":"nodemon app.js",
+    "server": "nodemon app.js",
     "start": "node app.js"
   },
   "repository": {
@@ -22,11 +22,7 @@
     "express": "^4.17.1",
     "fs": "0.0.1-security",
     "mongodb": "^3.6.4",
-    "mongoose": "^5.11.19",
-    "mysql": "^2.18.1",
-    "node-fetch": "^2.6.1",
-    "pytest": "^1.0.0",
-    "python-shell": "^2.0.3"
+    "node-fetch": "^2.6.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"

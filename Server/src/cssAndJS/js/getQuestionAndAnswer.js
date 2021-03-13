@@ -2,6 +2,22 @@ const submitButton = document.getElementById('submitBtn');
 get_random = function (list) {
   return list[Math.floor((Math.random()*list.length))];
 }
+// function to allow tabbing in the question input box
+document.getElementById('question').addEventListener('keydown', function(e) {
+  if (e.key == 'Tab') {
+    e.preventDefault();
+    var start = this.selectionStart;
+    var end = this.selectionEnd;
+
+    // set textarea value to: text before caret + tab + text after caret
+    this.value = this.value.substring(0, start) +
+      "\t" + this.value.substring(end);
+
+    // put caret at right position again
+    this.selectionStart =
+      this.selectionEnd = start + 1;
+  }
+});
 
 submitButton.addEventListener('click', async() => {
 
@@ -73,6 +89,16 @@ submitButton.addEventListener('click', async() => {
         json.Lvl4.push(forUpload);
     }else if (checked === 'Lvl5') {
         json.Lvl5.push(forUpload);
+    }else if (checked === 'Lvl6') {
+        json.Lvl6.push(forUpload);
+    }else if (checked === 'Lvl7') {
+        json.Lvl7.push(forUpload);
+    }else if (checked === 'Lvl8') {
+        json.Lvl8.push(forUpload);
+    }else if (checked === 'Lvl9') {
+        json.Lvl9.push(forUpload);
+    }else if (checked === 'Lvl10') {
+        json.Lvl10.push(forUpload);
     }else{console.log('AN ERROR HAS OCCURED');}
 
    // --------------------------------------------------

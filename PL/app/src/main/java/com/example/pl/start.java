@@ -49,11 +49,10 @@ public class start extends AppCompatActivity {
         backIntent.putExtra("dbUser", dbUser);
         startActivity(backIntent);
     }
-    public void leaderboardBtn(View view){
+    public void leaderboardBtn(View view) {
         Intent myIntent = new Intent(start.this, leaderboard.class);
         startActivity(myIntent);
     }
-
     public void getCounterAndScore(){
         String userName = dbUserJson.getString("userName", "Unknown Value");
 
@@ -78,7 +77,8 @@ public class start extends AppCompatActivity {
                 Log.i("myResponse", myResponse);
                 JsonObject counterAndScore = Json.parse(myResponse).asObject();
                 counterDB = counterAndScore.getString("counter", "Unknown Value");
-                highScore = counterAndScore.getString("highScore", "Unknown Value");
+                highScore = String.valueOf(counterAndScore.getInt("highScore", 0));
+                Log.i("HIGHSCORE", highScore);
 
                 Intent myIntent = new Intent(start.this, question.class);
                 myIntent.putExtra("dbUser", dbUser);

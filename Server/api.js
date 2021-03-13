@@ -1,7 +1,6 @@
 const express = require('express')
 const fs = require('fs');
 const spawn = require('child_process').spawn;
-const mongoose = require('mongoose');
 const api = express.Router();
 const elem = [];
 
