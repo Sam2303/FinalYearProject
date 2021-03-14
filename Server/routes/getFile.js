@@ -46,6 +46,14 @@ app.post('/createLogin', async(req,res)=>{
           const myDoc2 = await col.findOne();
           console.log("Score and Counter been uploaded");
 
+          const col3 = db.collection('leaderboard');
+          let leaderboardSet = {
+              "userName" : userName,
+              "highScore" : 0
+          };
+          const send2 = await col3.insertOne(leaderboardSet);
+          console.log("LeaderBoard Set");
+
         await res.json({success:"true"});
      }catch(err){
          console.log(err.stack);
