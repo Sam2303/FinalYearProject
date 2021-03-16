@@ -2,7 +2,7 @@
 
 :root{
 
---backgroundColor: #4F5165;
+--backgroundColor: #1f1d4a;
 --navBackground: #293132;
 --navText: #f3f3f3;
 --navHover: #50D8D7;
@@ -15,10 +15,7 @@
 }
 
 body{
-  background-image: url(./web_BG.png);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  background-color: var(--backgroundColor);
 }
 
 /* styling the nav bar for desktop */
@@ -47,7 +44,6 @@ header ul{
 }
 header li{
   padding: 4%;
-  margin-left: -2%;
   text-align: center;
   display: inline;
 }
@@ -98,7 +94,8 @@ header li{
     color: white;
 }
 /* styling the submit button */
-#submitBtn{
+#submitBtn,
+#downloadButton{
     background-color: var(--navHover);
     border-radius: 9px;
     border: none;
@@ -106,5 +103,39 @@ header li{
     width: 40%;
     height: 50px;
     margin: 2% 30% 2% 30%;
+    text-align: center;
+}
+
+/* Styling the questions printed */
+
+#questionBox{
+    background-color: #F3F3F3;
+    width: 80%;
+    border-radius: 5px;
+    margin: 0% 10% 0% 10%;
+    padding: 4px;
+}
+
+.Level{
+    background-color: var(--backgroundColor);
+    border-radius: 5px;
+    padding: 2px;
+    margin: 2px;
+}
+
+.question{
+    background-color: var(--navText);
+    padding: 1px;
+    margin: 2px;
+}
+
+.deleteBtn{
+    background-color: var(--navHover);
+    border-radius: 9px;
+    border: none;
+    font-size: 100%;
+    width: 20%;
+    height: 20px;
+    margin: 2% 40% 2% 40%;
     text-align: center;
 }

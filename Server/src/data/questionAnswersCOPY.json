@@ -1,11 +1,11 @@
 {
  "Lvl1": [
-     {
-      "question": "x = £\ny = $\nprint(x + y)"
-     },
-     {
-      "question": "x = $\ny = £\nprint(x - y)"
-     },
+  {
+   "question": "x = £\ny = $\nprint(x + y)"
+  },
+  {
+   "question": "x = $\ny = £\nprint(x - y)"
+  },
   {
    "question": "x = £\ny = $\nprint(x * y)"
   },
